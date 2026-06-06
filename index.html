@@ -387,6 +387,100 @@
       .logistics-recommendation-box { flex-direction: column; text-align: center; }
     }
 
+    /* IDENTITY & MARKETING */
+    #identity { background: var(--dark); }
+    .identity-container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; margin-top: 40px; align-items: start; }
+    .identity-panel {
+      background: var(--card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg); padding: 32px; display: flex; flex-direction: column; gap: 20px;
+    }
+    .panel-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .panel-desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
+    
+    /* Sticker Label */
+    .sticker-preview-wrap {
+      display: flex; flex-direction: column; gap: 16px; align-items: center;
+      padding: 32px; background: rgba(0,0,0,0.3); border-radius: var(--radius);
+      border: 1px dashed rgba(232,164,74,0.15);
+    }
+    .sticker-label {
+      width: 100%; max-width: 520px; height: 160px;
+      background: #FDFBF7; color: #151515; font-family: 'Inter', sans-serif;
+      padding: 18px 24px; border-radius: 2px; box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.03);
+      display: grid; grid-template-columns: 1.2fr 2fr 1.2fr; gap: 16px;
+      position: relative; border-left: 3px dashed rgba(0,0,0,0.15); border-right: 3px dashed rgba(0,0,0,0.15);
+    }
+    .sticker-col { display: flex; flex-direction: column; justify-content: space-between; height: 100%; border-right: 1px solid rgba(0,0,0,0.08); padding-right: 12px; }
+    .sticker-col:last-child { border-right: none; padding-right: 0; padding-left: 12px; }
+    
+    .sticker-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 900; line-height: 1.1; margin-bottom: 2px; letter-spacing: 0.5px; }
+    .sticker-subtitle { font-size: 0.52rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; line-height: 1.3; }
+    .sticker-badge-tag { font-size: 0.48rem; border: 1px solid #111; padding: 2px 5px; border-radius: 2px; margin-top: 6px; display: inline-block; font-weight: 700; width: fit-content; text-transform: uppercase; letter-spacing: 0.5px; }
+    
+    .sticker-desc-text { font-size: 0.55rem; line-height: 1.35; color: #222; margin-bottom: 5px; }
+    .sticker-desc-text strong { font-weight: 700; color: #000; }
+    
+    .sticker-meta { font-size: 0.58rem; text-align: right; line-height: 1.4; color: #333; }
+    .sticker-meta-title { font-weight: 700; text-transform: uppercase; font-size: 0.5rem; margin-bottom: 3px; color: #555; letter-spacing: 0.5px; }
+    .sticker-date-field { font-family: 'Playfair Display', serif; font-style: italic; border-bottom: 1.5px solid #111; display: inline-block; width: 66px; text-align: center; font-size: 0.65rem; color: #000; padding-bottom: 1px; font-weight: 600; }
+    .sticker-contact-email { color: #111; font-weight: 600; text-decoration: none; }
+    
+    .sticker-lang-selector { display: flex; gap: 8px; margin-top: 8px; }
+    .sticker-lang-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted); padding: 4px 12px; border-radius: 100px; font-size: 0.72rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .sticker-lang-btn.active { background: var(--amber); color: var(--dark); border-color: var(--amber); font-weight: 600; }
+    
+    /* Business Card */
+    .card-preview-wrap { display: flex; flex-direction: column; gap: 16px; align-items: center; background: rgba(0,0,0,0.3); padding: 32px; border-radius: var(--radius); border: 1px dashed rgba(232,164,74,0.15); }
+    .business-card-scene { width: 320px; height: 180px; perspective: 600px; }
+    .business-card {
+      width: 100%; height: 100%; position: relative; transition: transform 0.6s;
+      transform-style: preserve-3d; cursor: pointer;
+    }
+    .business-card.flipped { transform: rotateY(180deg); }
+    
+    .card-face {
+      position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+      border-radius: 6px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    
+    .card-front {
+      background: #120d08; color: #FAF9F6;
+      border: 1.5px solid rgba(232,164,74,0.25);
+    }
+    .card-front::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 10% 10%, rgba(232,164,74,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .card-back {
+      background: #FAF9F6; color: #120d08;
+      transform: rotateY(180deg);
+      border: 1px solid #FAF9F6;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    }
+    
+    .card-logo { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--amber); }
+    .card-logo span { color: #FAF9F6; font-weight: 400; font-style: italic; }
+    .card-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--cream); margin-top: auto; }
+    .card-role { font-size: 0.68rem; color: var(--amber); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px; font-weight: 600; }
+    .card-contact { font-size: 0.62rem; line-height: 1.4; color: var(--text-muted); }
+    .card-contact strong { color: var(--text); }
+    
+    .card-back-tag { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; line-height: 1.25; margin-bottom: 6px; color: #120d08; }
+    .card-back-sub { font-size: 0.72rem; color: #555; font-style: italic; margin-bottom: 16px; }
+    .card-back-badge { border: 1.5px solid #120d08; padding: 4px 14px; border-radius: 100px; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+    
+    .card-flip-tip { font-size: 0.78rem; color: var(--text-muted); text-align: center; }
+
+    @media (max-width:1024px) {
+      .identity-container { grid-template-columns: 1fr; }
+    }
+
     /* STRATEGY */
     #strategy { background:var(--dark2); }
     .strategy-header { margin-bottom:60px; }
@@ -448,6 +542,7 @@
     <li><a href="#reparto">Reparto</a></li>
     <li><a href="#salary">Salarios</a></li>
     <li><a href="#logistics">Logística</a></li>
+    <li><a href="#identity">Identidad</a></li>
     <li><a href="#strategy">Estrategia</a></li>
   </ul>
   <div class="nav-badge">🇱🇺 Luxembourg</div>
@@ -1132,6 +1227,105 @@
   </div>
 </section>
 
+<!-- IDENTIDAD & MARKETING (NANO BANANA) -->
+<section id="identity">
+  <div class="fade-up">
+    <div class="section-tag">🏷️ Packaging & Identidad</div>
+    <h2 class="section-title">Estética <em>Minimalista</em><br/>y Corporativa.</h2>
+    <p class="section-desc">
+      El envase y la presentación física son clave para el sector B2B. Diseñamos un sistema limpio que transmite calidad y cuidado artesanal sin abaratar la marca.
+    </p>
+  </div>
+
+  <div class="identity-container">
+    <!-- Panel de la Etiqueta -->
+    <div class="identity-panel fade-up">
+      <div>
+        <h3 class="panel-title">🔖 Etiqueta Adhesiva Rectangular</h3>
+        <p class="panel-desc">
+          Pensada para sellar la caja de bagazo kraft. Impresa en papel mate blanco roto o crema. El espacio central detalla la trazabilidad y los alérgenos, mientras que la fecha se escribe a mano para denotar preparación diaria.
+        </p>
+      </div>
+
+      <div class="sticker-preview-wrap">
+        <div class="sticker-label" id="stickerLabel">
+          <!-- Col 1: Identidad -->
+          <div class="sticker-col">
+            <div>
+              <div class="sticker-title" id="lblTitle">ROPA VIEJA</div>
+              <div class="sticker-subtitle" id="lblSubtitle">Edición Artesanal<br/>Elaborado en Luxemburgo</div>
+            </div>
+            <div class="sticker-badge-tag">B2B Premium</div>
+          </div>
+          
+          <!-- Col 2: Composición -->
+          <div class="sticker-col">
+            <div class="sticker-desc-text" id="lblComp"><strong>Composición:</strong> Carne de res estofada a baja temperatura, arroz congrí tradicional, tostones de plátano macho y ensalada fresca.</div>
+            <div class="sticker-desc-text" id="lblInst"><strong>Instrucciones:</strong> Retirar la ensalada. Calentar en microondas durante 2 minutos a potencia media.</div>
+            <div class="sticker-desc-text" style="font-size:0.5rem;color:#555;" id="lblAller"><strong>Alérgenos:</strong> Elaborado en un entorno que procesa diversos alérgenos.</div>
+          </div>
+          
+          <!-- Col 3: Trazabilidad -->
+          <div class="sticker-col">
+            <div class="sticker-meta">
+              <div class="sticker-meta-title" id="lblMetaDate">Fecha de elab:</div>
+              <span class="sticker-date-field" id="labelDate">--/--/----</span>
+              <div style="font-size:0.5rem;margin-top:4px;" id="lblConsume">Consumir en 48h.</div>
+            </div>
+            <div class="sticker-meta" style="text-align:right;">
+              <div class="sticker-meta-title" id="lblMetaContact">Contacto:</div>
+              <a href="mailto:info@abelrhodes.com" class="sticker-contact-email">info@abelrhodes.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="sticker-lang-selector">
+          <button class="sticker-lang-btn active" onclick="setStickerLang('es')">Español</button>
+          <button class="sticker-lang-btn" onclick="setStickerLang('fr')">Français</button>
+          <button class="sticker-lang-btn" onclick="setStickerLang('en')">English</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel de la Tarjeta de Presentación -->
+    <div class="identity-panel fade-up fade-up-d1">
+      <div>
+        <h3 class="panel-title">📇 Tarjeta de Presentación B2B</h3>
+        <p class="panel-desc">
+          Tarjeta de doble cara en cartón mate de alto gramaje. Diseñada para ser colocada encima o dentro del unboxing del primer pedido de prueba para que los coordinadores B2B puedan reordenar fácilmente.
+        </p>
+      </div>
+
+      <div class="card-preview-wrap">
+        <div class="business-card-scene">
+          <div class="business-card" id="businessCard" onclick="flipCard()">
+            <!-- Cara Delantera -->
+            <div class="card-face card-front">
+              <div class="card-logo">Cajitas <span>Cubanas</span></div>
+              <div>
+                <div class="card-name">Abel Rhodes</div>
+                <div class="card-role">Director & Catering</div>
+              </div>
+              <div class="card-contact">
+                📍 Luxembourg Ville<br/>
+                ✉️ <strong>info@abelrhodes.com</strong><br/>
+                🌐 www.abelrhodes.com
+              </div>
+            </div>
+            <!-- Cara Trasera -->
+            <div class="card-face card-back">
+              <div class="card-back-tag">Sabor auténtico.<br/>Formato premium.</div>
+              <div class="card-back-sub">Plato completo · Postre de cortesía</div>
+              <div class="card-back-badge">Cajita Cubana 🇱🇺</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-flip-tip">👆 Haz clic en la tarjeta para darle la vuelta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ESTRATEGIA -->
 <section id="strategy">
   <div class="strategy-header fade-up">
@@ -1290,6 +1484,79 @@
   window.addEventListener('scroll', () => {
     nav.style.boxShadow = window.scrollY > 50 ? '0 4px 32px rgba(0,0,0,0.4)' : 'none';
   });
+
+  // Identidad & Marketing Interactivity
+  function flipCard() {
+    document.getElementById('businessCard').classList.toggle('flipped');
+  }
+
+  // Set default date to today
+  (function() {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const dateStr = `${dd}/${mm}/${yyyy}`;
+    const el = document.getElementById('labelDate');
+    if (el) el.textContent = dateStr;
+  })();
+
+  // Translations object for sticker label
+  const labelTranslations = {
+    es: {
+      title: "ROPA VIEJA",
+      subtitle: "Edición Artesanal<br/>Elaborado en Luxemburgo",
+      comp: "<strong>Composición:</strong> Carne de res estofada a baja temperatura, arroz congrí tradicional, tostones de plátano macho y ensalada fresca.",
+      inst: "<strong>Instrucciones:</strong> Retirar la ensalada. Calentar en microondas durante 2 minutos a potencia media.",
+      aller: "<strong>Alérgenos:</strong> Elaborado en un entorno que procesa diversos alérgenos.",
+      metaDate: "Fecha de elab:",
+      consume: "Consumir en 48h.",
+      metaContact: "Contacto:"
+    },
+    fr: {
+      title: "ROPA VIEJA",
+      subtitle: "Édition Artisanale<br/>Élaboré au Luxembourg",
+      comp: "<strong>Composition:</strong> Boeuf mijoté à basse température, riz congrí traditionnel, plantains frits (tostones) et salade fraîche.",
+      inst: "<strong>Instructions:</strong> Retirer la salade. Réchauffer au micro-ondes pendant 2 minutes à puissance moyenne.",
+      aller: "<strong>Allergènes:</strong> Préparé dans un atelier qui utilise divers allergènes.",
+      metaDate: "Date de fab :",
+      consume: "À consommer sous 48h.",
+      metaContact: "Contact :"
+    },
+    en: {
+      title: "ROPA VIEJA",
+      subtitle: "Artisanal Edition<br/>Made in Luxembourg",
+      comp: "<strong>Composition:</strong> Slow-cooked shredded beef, traditional congrí rice, double-fried green plantains, and fresh salad.",
+      inst: "<strong>Instructions:</strong> Remove salad. Reheat in microwave for 2 minutes on medium power.",
+      aller: "<strong>Allergens:</strong> Prepared in an environment that handles various allergens.",
+      metaDate: "Date of prep:",
+      consume: "Consume within 48h.",
+      metaContact: "Contact:"
+    }
+  };
+
+  function setStickerLang(lang) {
+    // Toggle active class on buttons
+    const btns = document.querySelectorAll('.sticker-lang-btn');
+    btns.forEach(btn => {
+      if (btn.getAttribute('onclick').includes(`'${lang}'`)) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    // Translate texts
+    const t = labelTranslations[lang];
+    document.getElementById('lblTitle').innerHTML = t.title;
+    document.getElementById('lblSubtitle').innerHTML = t.subtitle;
+    document.getElementById('lblComp').innerHTML = t.comp;
+    document.getElementById('lblInst').innerHTML = t.inst;
+    document.getElementById('lblAller').innerHTML = t.aller;
+    document.getElementById('lblMetaDate').innerHTML = t.metaDate;
+    document.getElementById('lblConsume').innerHTML = t.consume;
+    document.getElementById('lblMetaContact').innerHTML = t.metaContact;
+  }
 </script>
 </body>
 </html>
