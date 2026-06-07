@@ -528,6 +528,29 @@
       .nav-links { display:none; }
       footer { padding:32px 40px; }
     }
+
+    /* GLOBAL PROTEIN SELECTOR BAR */
+    .protein-selector-bar {
+      background: var(--dark3); border-bottom: 1px solid rgba(232,164,74,0.15);
+      padding: 16px 20px; position: sticky; top: 71px; z-index: 90;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .selector-container { display: flex; align-items: center; gap: 20px; }
+    .selector-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .selector-buttons { display: flex; gap: 10px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.06); }
+    .selector-btn {
+      background: transparent; border: none; color: var(--text-muted);
+      padding: 8px 24px; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s; display: flex; align-items: center; gap: 6px;
+    }
+    .selector-btn.active { background: var(--amber); color: var(--dark); font-weight: 700; box-shadow: 0 4px 12px rgba(232,164,74,0.3); }
+    .selector-btn:hover:not(.active) { color: var(--text); }
+
+    @media (max-width:768px) {
+      .protein-selector-bar { top: 60px; padding: 12px; }
+      .selector-container { flex-direction: column; gap: 10px; text-align: center; }
+      .selector-btn { padding: 6px 16px; font-size: 0.78rem; }
+    }
   </style>
 </head>
 <body>
@@ -594,6 +617,17 @@
   </div>
 </div>
 
+<!-- GLOBAL PROTEIN SELECTOR -->
+<div class="protein-selector-bar">
+  <div class="selector-container">
+    <span class="selector-label">🍽️ Proteína Activa:</span>
+    <div class="selector-buttons">
+      <button class="selector-btn active" id="btnBeef" onclick="switchProtein('beef')">🥩 Ropa Vieja (Res)</button>
+      <button class="selector-btn" id="btnPork" onclick="switchProtein('pork')">🐷 Cerdo Asado (Mojo)</button>
+    </div>
+  </div>
+</div>
+
 <!-- MENÚ -->
 <section id="menu">
   <div class="menu-header fade-up">
@@ -606,11 +640,11 @@
   </div>
   <div class="menu-grid">
 
-    <div class="menu-card fade-up">
-      <span class="menu-emoji">🥩</span>
-      <h3>Ropa Vieja</h3>
-      <span class="menu-gram reduced" style="background:rgba(76,175,125,0.12);color:var(--green);">100 g — optimizado ↓↓</span>
-      <p class="menu-desc">
+    <div class="menu-card fade-up" id="proteinMenuCard">
+      <span class="menu-emoji" id="proteinMenuEmoji">🥩</span>
+      <h3 id="proteinMenuTitle">Ropa Vieja</h3>
+      <span class="menu-gram reduced" id="proteinMenuGram" style="background:rgba(76,175,125,0.12);color:var(--green);">100 g — optimizado ↓↓</span>
+      <p class="menu-desc" id="proteinMenuDesc">
         Falda de res cocida a fuego lento y desmechada en salsa criolla de tomate 
         natural, pimientos rojos, cebolla morada, ajo y comino. La estrella del menú.
         100g con salsa generosa crean una presencia visual impactante en la caja — la clave está en la salsita abundante.
@@ -706,17 +740,17 @@
         </thead>
         <tbody>
           <tr>
-            <td>🥩 Carne — Ropa Vieja (falda/aleta) <span class="cost-badge badge-cut">↓ 100g</span></td>
-            <td>10 kg brutos</td>
-            <td class="price-cut">130.00 €</td>
+            <td id="costCol1Name">🥩 Carne — Ropa Vieja (falda/aleta) <span class="cost-badge badge-cut">↓ 100g</span></td>
+            <td id="costCol1Qty">10 kg brutos</td>
+            <td class="price-cut" id="costCol1Price">130.00 €</td>
           </tr>
           <tr>
-            <td>🫑 Vegetales Ropa Vieja</td>
-            <td>Pimientos, cebolla, ajo, salsa</td>
-            <td class="price">30.00 €</td>
+            <td id="costCol2Name">🫑 Vegetales Ropa Vieja</td>
+            <td id="costCol2Qty">Pimientos, cebolla, ajo, salsa</td>
+            <td class="price" id="costCol2Price">30.00 €</td>
           </tr>
           <tr>
-            <td>🍚 Arroz Congrí completo <span class="cost-badge badge-cut">↓ 100g</span></td>
+            <td>Arroz Congrí completo <span class="cost-badge badge-cut">↓ 100g</span></td>
             <td>4 kg arroz · 2 kg frijol · 1 kg tocino</td>
             <td class="price-cut">30.00 €</td>
           </tr>
@@ -744,44 +778,44 @@
         <tfoot>
           <tr>
             <td colspan="2"><strong>TOTAL costos directos (100 cajitas + postre)</strong></td>
-            <td class="price price-total">355.00 €</td>
+            <td class="price price-total" id="costTotalVal">355.00 €</td>
           </tr>
         </tfoot>
       </table>
-      <div class="cost-note">
+      <div class="cost-note" id="costNoteText">
         <strong>📦 Empaque Detallado:</strong> Envases ecológicos de 1200 ml de Greenbox (0,29€/unidad para pedido de 300 piezas en biologischverpacken.de) + etiquetas adhesivas personalizadas de 15x5 cm impresas en rollo mate (0,12€/unidad) + cubiertos de madera y servilleta (0,09€/unidad). Total: 0,50€ por lote.
       </div>
     </div>
 
     <div class="fade-up fade-up-d1">
       <div class="bar-chart-card">
-        <div class="bar-chart-title">Distribución del gasto (355€)</div>
+        <div class="bar-chart-title" id="barChartTitle">Distribución del gasto (355€)</div>
         <div class="bar-row">
-          <div class="bar-row-label"><span class="name">🥩 Carne (Ropa Vieja)</span><span class="val">130 € · 37%</span></div>
+          <div class="bar-row-label"><span class="name" id="bar1Label">🥩 Carne (Ropa Vieja)</span><span class="val" id="bar1ValText">130 € · 37%</span></div>
           <div class="bar-track"><div class="bar-fill" id="b1" data-w="37"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-row-label"><span class="name">📦 Empaque</span><span class="val">50 € · 14%</span></div>
+          <div class="bar-row-label"><span class="name" id="bar2Label">📦 Empaque</span><span class="val" id="bar2ValText">50 € · 14%</span></div>
           <div class="bar-track"><div class="bar-fill" id="b2" data-w="14"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-row-label"><span class="name">🍌 Tostones + aceite</span><span class="val">45 € · 13%</span></div>
+          <div class="bar-row-label"><span class="name" id="bar3Label">🍌 Tostones + aceite</span><span class="val" id="bar3ValText">45 € · 13%</span></div>
           <div class="bar-track"><div class="bar-fill" id="b3" data-w="13"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-row-label"><span class="name">🥗 Ensalada</span><span class="val">40 € · 11%</span></div>
+          <div class="bar-row-label"><span class="name" id="bar4Label">🥗 Ensalada</span><span class="val" id="bar4ValText">40 € · 11%</span></div>
           <div class="bar-track"><div class="bar-fill" id="b4" data-w="11"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-row-label"><span class="name">🫑 Vegetales R.V.</span><span class="val">30 € · 8%</span></div>
+          <div class="bar-row-label"><span class="name" id="bar5Label">🫑 Vegetales R.V.</span><span class="val" id="bar5ValText">30 € · 8%</span></div>
           <div class="bar-track"><div class="bar-fill" id="b5" data-w="8"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-row-label"><span class="name">🍮 Postre Guayaba</span><span class="val">30 € · 8%</span></div>
+          <div class="bar-row-label"><span class="name" id="bar6Label">🍮 Postre Guayaba</span><span class="val" id="bar6ValText">30 € · 8%</span></div>
           <div class="bar-track"><div class="bar-fill purple" id="b6" data-w="8"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-row-label"><span class="name">🍚 Congrí completo</span><span class="val">30 € · 8%</span></div>
+          <div class="bar-row-label"><span class="name" id="bar7Label">🍚 Congrí completo</span><span class="val" id="bar7ValText">30 € · 8%</span></div>
           <div class="bar-track"><div class="bar-fill" id="b7" data-w="8"></div></div>
         </div>
       </div>
@@ -815,19 +849,19 @@
       </div>
       <div class="profit-card green fade-up fade-up-d1">
         <div class="profit-icon">💵</div>
-        <div class="profit-val green-text">11.45 €</div>
+        <div class="profit-val green-text" id="profitUnitCost">11.45 €</div>
         <div class="profit-label">Ganancia bruta por cajita</div>
       </div>
       <div class="profit-card purple fade-up fade-up-d2">
         <div class="profit-icon">📈</div>
-        <div class="profit-val purple-text">76%</div>
+        <div class="profit-val purple-text" id="profitMarginCard">76%</div>
         <div class="profit-label">Margen de beneficio bruto</div>
       </div>
     </div>
 
     <div class="profit-visual fade-up">
       <div class="gauge-wrap">
-        <div class="gauge-title">Margen bruto a 15€/cajita con postre (100g+100g)</div>
+        <div class="gauge-title" id="profitGaugeTitle">Margen bruto a 15€/cajita con postre (100g+100g)</div>
         <svg class="donut-svg" viewBox="0 0 200 200">
           <defs>
             <linearGradient id="ambGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -837,11 +871,11 @@
           </defs>
           <circle class="donut-bg"  cx="100" cy="100" r="80"/>
           <circle class="donut-val donut-margin" id="donutCircle" cx="100" cy="100" r="80"/>
-          <text class="donut-text-val" x="100" y="95">76%</text>
+          <text class="donut-text-val" id="donutPctText" x="100" y="95">76%</text>
           <text class="donut-text-lbl" x="100" y="118" style="font-size:0.7rem;fill:#A08060;">margen bruto</text>
         </svg>
         <div style="text-align:center;margin-top:16px;">
-          <div style="font-size:0.8rem;color:var(--text-muted)">
+          <div style="font-size:0.8rem;color:var(--text-muted)" id="donutSubText">
             Costo alimentos: <strong style="color:var(--red)">3.55 €</strong> = <strong style="color:var(--red)">24%</strong> del precio<br/>
             <span style="font-size:0.75rem">(Objetivo industria: &lt; 30% ✅✅)</span>
           </div>
@@ -853,32 +887,32 @@
         <div class="scenario-row">
           <div class="scenario-price">15€</div>
           <div class="scenario-details">
-            <div class="scenario-income">1.500 € ingreso · 1.145 € ganancia · 🍮 postre</div>
-            <div class="scenario-margin">Margen 76% — Máximo volumen, máxima fidelización</div>
+            <div class="scenario-income" id="scen1Detail">1.500 € ingreso · 1.145 € ganancia · 🍮 postre</div>
+            <div class="scenario-margin" id="scen1Margin">Margen 76% — Máximo volumen, máxima fidelización</div>
           </div>
           <span class="scenario-badge badge-selected">✦ ELEGIDO</span>
         </div>
         <div class="scenario-row">
           <div class="scenario-price">18€</div>
           <div class="scenario-details">
-            <div class="scenario-income">1.800 € ingreso · 1.445 € ganancia · 🍮 postre</div>
-            <div class="scenario-margin">Margen 80.3% — Precio intermedio</div>
+            <div class="scenario-income" id="scen2Detail">1.800 € ingreso · 1.445 € ganancia · 🍮 postre</div>
+            <div class="scenario-margin" id="scen2Margin">Margen 80.3% — Precio intermedio</div>
           </div>
           <span class="scenario-badge badge-ok">Opción B</span>
         </div>
         <div class="scenario-row">
           <div class="scenario-price">20€</div>
           <div class="scenario-details">
-            <div class="scenario-income">2.000 € ingreso · 1.645 € ganancia · 🍮 postre</div>
-            <div class="scenario-margin">Margen 82.3% — Eventos y catering</div>
+            <div class="scenario-income" id="scen3Detail">2.000 € ingreso · 1.645 € ganancia · 🍮 postre</div>
+            <div class="scenario-margin" id="scen3Margin">Margen 82.3% — Eventos y catering</div>
           </div>
           <span class="scenario-badge badge-ok">Catering</span>
         </div>
         <div class="scenario-row">
           <div class="scenario-price">25€</div>
           <div class="scenario-details">
-            <div class="scenario-income">2.500 € ingreso · 2.145 € ganancia · 🍮 postre</div>
-            <div class="scenario-margin">Margen 85.8% — Premium / Bodas / Eventos</div>
+            <div class="scenario-income" id="scen4Detail">2.500 € ingreso · 2.145 € ganancia · 🍮 postre</div>
+            <div class="scenario-margin" id="scen4Margin">Margen 85.8% — Premium / Bodas / Eventos</div>
           </div>
           <span class="scenario-badge badge-ok">Futuro</span>
         </div>
@@ -887,13 +921,6 @@
 
     <div class="breakeven-box fade-up">
       <div class="be-item">
-        <div class="be-val">355 €</div>
-        <div class="be-label">Costo total de 100 cajitas<br/>(ingredientes + postre)</div>
-      </div>
-      <div class="be-item">
-        <div class="be-val">24 cajas</div>
-        <div class="be-label">Punto de equilibrio<br/>(recuperas los 355 €)</div>
-      </div>
       <div class="be-item">
         <div class="be-val">1.145 €</div>
         <div class="be-label">Ganancia bruta<br/>en cada lote de 100</div>
@@ -923,25 +950,25 @@
     <div class="flow-arrow">−</div>
     <div class="flow-box">
       <div class="flow-label">🛒 Costos lote actual</div>
-      <div class="flow-val red">355€</div>
+      <div class="flow-val red" id="flowCostVal">355€</div>
       <div class="flow-sub">ingredientes + empaque</div>
     </div>
     <div class="flow-arrow">=</div>
     <div class="flow-box highlight-green">
       <div class="flow-label">📈 Beneficio bruto</div>
-      <div class="flow-val green">1.145€</div>
-      <div class="flow-sub">margen 76%</div>
+      <div class="flow-val green" id="flowProfitVal">1.145€</div>
+      <div class="flow-sub" id="flowProfitMarginSub">margen 76%</div>
     </div>
     <div class="flow-arrow">−</div>
     <div class="flow-box highlight-red">
       <div class="flow-label">🔄 Próxima inversión</div>
-      <div class="flow-val red">355€</div>
+      <div class="flow-val red" id="flowReinvestVal">355€</div>
       <div class="flow-sub">fondos siguiente lote</div>
     </div>
     <div class="flow-arrow">=</div>
     <div class="flow-box highlight-amber">
       <div class="flow-label">✅ A REPARTIR</div>
-      <div class="flow-val amber">790€</div>
+      <div class="flow-val amber" id="flowRepartibleVal">790€</div>
       <div class="flow-sub">por lote de 100 cajitas</div>
     </div>
   </div>
@@ -1010,17 +1037,17 @@
     <div style="flex:1;min-width:200px;">
       <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">♻️ Modelo circular</div>
       <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream);margin-bottom:8px;">Cada lote se autofinancia</div>
-      <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">Los 355€ del primer lote deben venir del capital inicial. A partir del segundo lote, el negocio se financia solo. <strong style="color:var(--amber);">Cero necesidad de crédito externo.</strong></div>
+      <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;" id="repartoCircularDesc">Los 355€ del primer lote deben venir del capital inicial. A partir del segundo lote, el negocio se financia solo. <strong style="color:var(--amber);">Cero necesidad de crédito externo.</strong></div>
     </div>
     <div style="text-align:center;">
       <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">Capital inicial necesario</div>
-      <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--amber);">355€</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--amber);" id="repartoCapInicial">355€</div>
       <div style="font-size:0.8rem;color:var(--text-muted);">una sola vez</div>
     </div>
     <div style="text-align:center;">
       <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">Repartible mensual total</div>
-      <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--green);">7.236€</div>
-      <div style="font-size:0.8rem;color:var(--text-muted);">= 9.16 lotes × 790€</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--green);" id="repartoRepartibleMes">7.236€</div>
+      <div style="font-size:0.8rem;color:var(--text-muted);" id="repartoRepartibleMesSub">= 9.16 lotes × 790€</div>
     </div>
   </div>
 </section>
@@ -1395,19 +1422,6 @@
       <div class="phase-right">
         <div class="phase-tag">Fase 4 — Fidelización</div>
         <div class="phase-title">Puntualidad, Rutas y Repetición</div>
-        <p class="phase-desc">En Luxemburgo la puntualidad es sagrada. Un retraso de 15 minutos puede costarte un cliente para siempre.</p>
-        <div class="phase-tips">
-          <div class="phase-tip">Entrega entre 11:45 AM y 12:15 PM. Agrupar por edificio o calle. Máximo 4 paradas por ruta de reparto.</div>
-          <div class="phase-tip">Sistema de fidelidad oral: "Cada 10 cajitas, la 11ª es gratis". Genera lealtad sin app ni tarjetas.</div>
-          <div class="phase-tip">Pack empresa (10+ cajitas): descuento del 10% = 13.50€/cajita. Objetivo: 4-5 contratos recurrentes semanales = meta de 48 cajitas/día garantizada.</div>
-          <div class="phase-tip">Varía el postre mensualmente: flan de coco en agosto, arroz con leche en invierno. El cliente siempre tiene un motivo nuevo para abrir la cajita con emoción.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
   <div class="footer-brand">Cajitas <span>Cubanas</span></div>
   <div class="footer-info">Plan de Negocio · Luxembourg 2026 · 15€ + 🍮 Postre Gratis · Margen 76%</div>
@@ -1421,9 +1435,77 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
+  // Configuration for proteins (Beef vs Pork)
+  const proteinConfig = {
+    beef: {
+      menuTitle: "Ropa Vieja",
+      menuEmoji: "🥩",
+      menuGram: "100 g — optimizado ↓↓",
+      menuDesc: "Falda de res cocida a fuego lento y desmechada en salsa criolla de tomate natural, pimientos rojos, cebolla morada, ajo y comino. La estrella del menú. 100g con salsa generosa crean una presencia visual impactante en la caja — la clave está en la salsita abundante.",
+      costName: "🥩 Carne — Ropa Vieja (falda/aleta) <span class=\"cost-badge badge-cut\">↓ 100g</span>",
+      costQty: "10 kg brutos",
+      costPrice: 130,
+      veggieName: "🫑 Vegetales Ropa Vieja",
+      veggiePrice: 30,
+      totalCost: 355,
+      costNote: "<strong>📦 Empaque Detallado:</strong> Envases ecológicos de 1200 ml de Greenbox (0,29€/unidad para pedido de 300 piezas en biologischverpacken.de) + etiquetas adhesivas personalizadas de 15x5 cm impresas en rollo mate (0,12€/unidad) + cubiertos de madera y servilleta (0,09€/unidad). Total: 0,50€ por lote.",
+      unitCostStr: "3.55 €",
+      unitSubStr: "= 355 € ÷ 100 unidades",
+      barValues: { b1: 37, b2: 14, b3: 13, b4: 11, b5: 8, b6: 8, b7: 8 },
+      profitUnit: 11.45,
+      marginPct: 76,
+      scenarios: {
+        sc1: "1.500 € ingreso · 1.145 € ganancia · 🍮 postre",
+        sc2: "1.800 € ingreso · 1.445 € ganancia · 🍮 postre",
+        sc3: "2.000 € ingreso · 1.645 € ganancia · 🍮 postre",
+        sc4: "2.500 € ingreso · 2.145 € ganancia · 🍮 postre"
+      },
+      breakevencajas: 24,
+      profitLote: 1145,
+      flowRepartible: 790,
+      capInicial: 355,
+      repartibleMes: 7236,
+      logistics: { l1: 7236, l2: 6302, l3: 8134, l4: 3114 }
+    },
+    pork: {
+      menuTitle: "Cerdo Asado Cubano",
+      menuEmoji: "🐷",
+      menuGram: "100 g — económico ↑↑",
+      menuDesc: "Paleta de cerdo marinada en mojo criollo tradicional (naranja agria, ajo, comino, orégano) y asada a fuego lento hasta que se deshaga con corteza crujiente. Tradición cubana pura, con costes muy eficientes.",
+      costName: "🐷 Cerdo — Paleta / Cabezada <span class=\"cost-badge badge-cut\">↓ 100g</span>",
+      costQty: "10 kg brutos",
+      costPrice: 75,
+      veggieName: "🍊 Mojo Criollo (Naranja agria, Ajo, Cebolla)",
+      veggiePrice: 15,
+      totalCost: 285,
+      costNote: "<strong>📦 Empaque Detallado:</strong> Envases ecológicos de 1200 ml de Greenbox (0,29€/unidad) + etiquetas adhesivas personalizadas 15x5 cm (0,12€/unidad) + cubiertos de madera (0,09€/unidad). El coste del cerdo asado es menor que el de la ternera.",
+      unitCostStr: "2.85 €",
+      unitSubStr: "= 285 € ÷ 100 unidades",
+      barValues: { b1: 26, b2: 18, b3: 16, b4: 14, b5: 5, b6: 11, b7: 11 },
+      profitUnit: 12.15,
+      marginPct: 81,
+      scenarios: {
+        sc1: "1.500 € ingreso · 1.215 € ganancia · 🍮 postre",
+        sc2: "1.800 € ingreso · 1.515 € ganancia · 🍮 postre",
+        sc3: "2.000 € ingreso · 1.715 € ganancia · 🍮 postre",
+        sc4: "2.500 € ingreso · 2.215 € ganancia · 🍮 postre"
+      },
+      breakevencajas: 19,
+      profitLote: 1215,
+      flowRepartible: 930,
+      capInicial: 285,
+      repartibleMes: 8519,
+      logistics: { l1: 8519, l2: 7585, l3: 9416, l4: 4397 }
+    }
+  };
+
+  let currentProtein = 'beef';
+
   // Reparto interactivo
   function updateReparto() {
-    const REPARTIBLE = 790;
+    const type = currentProtein;
+    const conf = proteinConfig[type];
+    const REPARTIBLE = conf.flowRepartible;
     const LOTES_MES  = 9.16;
     const pcts = [+document.getElementById('sl1').value, +document.getElementById('sl2').value, +document.getElementById('sl3').value];
     const total = pcts.reduce((a,b)=>a+b,0);
@@ -1444,8 +1526,126 @@
       document.getElementById(labels[i]+'month').textContent = perMonth.toLocaleString('es') + '€';
     });
   }
-  // Init
-  updateReparto();
+
+  // Dynamic protein switch
+  function switchProtein(type) {
+    currentProtein = type;
+    document.getElementById('btnBeef').classList.toggle('active', type === 'beef');
+    document.getElementById('btnPork').classList.toggle('active', type === 'pork');
+    const conf = proteinConfig[type];
+    document.getElementById('proteinMenuEmoji').textContent = conf.menuEmoji;
+    document.getElementById('proteinMenuTitle').textContent = conf.menuTitle;
+    document.getElementById('proteinMenuGram').textContent = conf.menuGram;
+    document.getElementById('proteinMenuDesc').textContent = conf.menuDesc;
+    document.getElementById('costCol1Name').innerHTML = conf.costName;
+    document.getElementById('costCol1Qty').textContent = conf.costQty;
+    document.getElementById('costCol1Price').textContent = conf.costPrice.toFixed(2) + ' €';
+    document.getElementById('costCol2Name').innerHTML = conf.veggieName;
+    document.getElementById('costCol2Price').textContent = conf.veggiePrice.toFixed(2) + ' €';
+    document.getElementById('costTotalVal').textContent = conf.totalCost.toFixed(2) + ' €';
+    document.getElementById('costNoteText').innerHTML = conf.costNote;
+    document.getElementById('unitCostVal').textContent = conf.unitCostStr;
+    document.getElementById('unitCostSub').textContent = conf.unitSubStr;
+    document.getElementById('barChartTitle').textContent = `Distribución del gasto (${conf.totalCost}€)`;
+    document.getElementById('bar1Label').innerHTML = type === 'beef' ? '🥩 Carne (Ropa Vieja)' : '🐷 Cerdo (Asado)';
+    document.getElementById('bar1ValText').textContent = `${conf.costPrice} € · ${conf.barValues.b1}%`;
+    document.getElementById('b1').dataset.w = conf.barValues.b1;
+    document.getElementById('b1').style.width = conf.barValues.b1 + '%';
+    document.getElementById('bar5Label').innerHTML = type === 'beef' ? '🫑 Vegetales R.V.' : '🍊 Mojo Criollo';
+    document.getElementById('bar5ValText').textContent = `${conf.veggiePrice} € · ${conf.barValues.b5}%`;
+    document.getElementById('b5').dataset.w = conf.barValues.b5;
+    document.getElementById('b5').style.width = conf.barValues.b5 + '%';
+    const barIds = ['b2', 'b3', 'b4', 'b6', 'b7'];
+    const barLabels = ['bar2ValText', 'bar3ValText', 'bar4ValText', 'bar6ValText', 'bar7ValText'];
+    const barPrices = [50, 45, 40, 30, 30];
+    barIds.forEach((id, idx) => {
+      const el = document.getElementById(id);
+      const valText = document.getElementById(barLabels[idx]);
+      const pct = conf.barValues[id];
+      el.dataset.w = pct;
+      el.style.width = pct + '%';
+      valText.textContent = `${barPrices[idx]} € · ${pct}%`;
+    });
+    document.getElementById('profitUnitCost').textContent = conf.profitUnit.toFixed(2) + ' €';
+    document.getElementById('profitMarginCard').textContent = conf.marginPct + '%';
+    document.getElementById('donutPctText').textContent = conf.marginPct + '%';
+    const offset = 502 - (conf.marginPct / 100) * 502;
+    document.getElementById('donutCircle').style.strokeDashoffset = offset;
+    const foodCostPct = 100 - conf.marginPct;
+    document.getElementById('donutSubText').innerHTML = `
+      Costo alimentos: <strong style="color:var(--red)">${(conf.totalCost/100).toFixed(2)} €</strong> = <strong style="color:var(--red)">${foodCostPct}%</strong> del precio<br/>
+      <span style="font-size:0.75rem">(Objetivo industria: &lt; 30% ✅✅)</span>
+    `;
+    document.getElementById('scen1Detail').textContent = conf.scenarios.sc1;
+    document.getElementById('scen2Detail').textContent = conf.scenarios.sc2;
+    document.getElementById('scen3Detail').textContent = conf.scenarios.sc3;
+    document.getElementById('scen4Detail').textContent = conf.scenarios.sc4;
+    document.getElementById('scen1Margin').textContent = `Margen ${conf.marginPct}% — Máximo volumen, máxima fidelización`;
+    document.getElementById('scen2Margin').textContent = `Margen ${(conf.marginPct + 4.3).toFixed(1)}% — Precio intermedio`;
+    document.getElementById('scen3Margin').textContent = `Margen ${(conf.marginPct + 6.3).toFixed(1)}% — Eventos y catering`;
+    document.getElementById('scen4Margin').textContent = `Margen ${(conf.marginPct + 9.8).toFixed(1)}% — Premium / Bodas / Eventos`;
+    document.getElementById('beCardTotalCost').textContent = conf.totalCost + ' €';
+    document.getElementById('beCardUnits').textContent = conf.breakevencajas + ' cajas';
+    document.getElementById('beCardUnitsLbl').innerHTML = `Punto de equilibrio<br/>(recuperas los ${conf.totalCost} €)`;
+    document.getElementById('beCardLoteProfit').textContent = conf.profitLote.toLocaleString('es') + ' €';
+    document.getElementById('flowCostVal').textContent = conf.totalCost + '€';
+    document.getElementById('flowProfitVal').textContent = conf.profitLote.toLocaleString('es') + '€';
+    document.getElementById('flowProfitMarginSub').textContent = `margen ${conf.marginPct}%`;
+    document.getElementById('flowReinvestVal').textContent = conf.totalCost + '€';
+    document.getElementById('flowRepartibleVal').textContent = conf.flowRepartible + '€';
+    document.getElementById('repartoCircularDesc').innerHTML = `Los ${conf.totalCost}€ del primer lote deben venir del capital inicial. A partir del segundo lote, el negocio se financia solo. <strong style="color:var(--amber);">Cero necesidad de crédito externo.</strong>`;
+    document.getElementById('repartoCapInicial').textContent = conf.totalCost + '€';
+    document.getElementById('repartoRepartibleMes').textContent = conf.repartibleMes.toLocaleString('es') + '€';
+    document.getElementById('repartoRepartibleMesSub').textContent = `= 9.16 lotes × ${conf.flowRepartible}€`;
+    document.getElementById('salaryGainPerBox').textContent = conf.profitUnit.toFixed(2) + ' €';
+    const boxesNeeded = Math.round(10500 / conf.profitUnit);
+    const weeklyNeeded = Math.round(boxesNeeded / 4);
+    document.getElementById('salaryBoxesNeeded').textContent = `≈ ${boxesNeeded} cajitas`;
+    document.getElementById('salaryBoxesWeekly').textContent = `≈ ${weeklyNeeded} cajitas/semana`;
+    document.querySelector('.weekly-target .wt-big').textContent = weeklyNeeded;
+    const fiveDays = Math.round(weeklyNeeded / 5);
+    const sixDays = Math.round(weeklyNeeded / 6);
+    const sevenDays = Math.round(weeklyNeeded / 7);
+    document.querySelectorAll('.daily-pills .pill')[0].innerHTML = `5 días: <strong>${fiveDays} cajas/día</strong>`;
+    document.querySelectorAll('.daily-pills .pill')[1].innerHTML = `6 días: <strong>${sixDays} cajas/día</strong>`;
+    document.querySelectorAll('.daily-pills .pill')[2].innerHTML = `7 días: <strong>${sevenDays} cajas/día</strong>`;
+    document.querySelectorAll('.stats-strip .stat-number')[1].textContent = conf.marginPct + '%';
+    document.querySelectorAll('.stats-strip .stat-number')[2].textContent = weeklyNeeded;
+    document.getElementById('logCardRepartible1').textContent = conf.repartibleMes.toLocaleString('es') + '€';
+    const ssmRiderCost = 102;
+    const log2Rep = Math.round((conf.profitLote - ssmRiderCost - conf.totalCost) * 9.16);
+    document.getElementById('logCardRepartible2').textContent = log2Rep.toLocaleString('es') + '€';
+    const log3Rep = Math.round((1700 - conf.totalCost - ssmRiderCost - conf.totalCost) * 9.16);
+    document.getElementById('logCardRepartible3').textContent = conf.logistics.l3.toLocaleString('es') + '€';
+    const woltComm = 450;
+    const log4Rep = Math.round((conf.profitLote - woltComm - conf.totalCost) * 9.16);
+    document.getElementById('logCardRepartible4').textContent = conf.logistics.l4.toLocaleString('es') + '€';
+    updateStickerLabelTranslations(type);
+    updateReparto();
+  }
+
+  function updateStickerLabelTranslations(type) {
+    if (type === 'beef') {
+      labelTranslations.es.title = "ROPA VIEJA";
+      labelTranslations.es.comp = "<strong>Composición:</strong> Carne de res estofada a baja temperatura, arroz congrí tradicional, tostones de plátano macho y ensalada fresca.";
+      labelTranslations.fr.title = "ROPA VIEJA";
+      labelTranslations.fr.comp = "<strong>Composition:</strong> Boeuf mijoté à basse température, riz congrí traditionnel, plantains frits (tostones) et salade fraîche.";
+      labelTranslations.en.title = "ROPA VIEJA";
+      labelTranslations.en.comp = "<strong>Composition:</strong> Slow-cooked shredded beef, traditional congrí rice, double-fried green plantains, and fresh salad.";
+    } else {
+      labelTranslations.es.title = "CERDO ASADO";
+      labelTranslations.es.comp = "<strong>Composición:</strong> Paleta de cerdo asada marinada en mojo criollo, arroz congrí tradicional, tostones de plátano macho y ensalada fresca.";
+      labelTranslations.fr.title = "PORC RÔTI";
+      labelTranslations.fr.comp = "<strong>Composition:</strong> Épaule de porc rôtie marinée au mojo créole, riz congrí traditionnel, plantains frits (tostones) et salade fraîche.";
+      labelTranslations.en.title = "ROAST PORK";
+      labelTranslations.en.comp = "<strong>Composition:</strong> Slow-roasted pork shoulder marinated in mojo sauce, traditional congrí rice, double-fried green plantains, and fresh salad.";
+    }
+    const activeBtn = document.querySelector('.sticker-lang-btn.active');
+    if (activeBtn) {
+      const lang = activeBtn.textContent.toLowerCase().substring(0, 2);
+      setStickerLang(lang === 'es' ? 'es' : lang === 'fr' ? 'fr' : 'en');
+    }
+  }
 
   // Bar chart animation
   const barObserver = new IntersectionObserver((entries) => {
@@ -1535,7 +1735,6 @@
   };
 
   function setStickerLang(lang) {
-    // Toggle active class on buttons
     const btns = document.querySelectorAll('.sticker-lang-btn');
     btns.forEach(btn => {
       if (btn.getAttribute('onclick').includes(`'${lang}'`)) {
@@ -1545,7 +1744,6 @@
       }
     });
 
-    // Translate texts
     const t = labelTranslations[lang];
     document.getElementById('lblTitle').innerHTML = t.title;
     document.getElementById('lblSubtitle').innerHTML = t.subtitle;
