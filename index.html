@@ -524,6 +524,100 @@
     }
     .box-toggle-btn:hover { background: var(--amber); color: var(--dark); border-color: var(--amber); }
 
+    /* HERO SUGARCANE BOX (Hover Interactive) */
+    .hero-sugarcane-box-container {
+      position: relative;
+      z-index: 15;
+    }
+    .hero-sugarcane-box {
+      width: 380px;
+      height: 380px;
+      background: #FAF9F6;
+      border-radius: 12px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.05);
+      border: 1px solid #e5e4dc;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1.2fr 1fr;
+      gap: 10px;
+      padding: 16px;
+      cursor: pointer;
+    }
+    .hero-sugarcane-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+    }
+    
+    .hero-sugarcane-box .comp-large {
+      grid-column: 1 / -1; background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      padding: 12px; display: flex; justify-content: space-around; align-items: center; position: relative;
+    }
+    .hero-sugarcane-box .comp-small-1,
+    .hero-sugarcane-box .comp-small-2 {
+      background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
+    }
+    
+    .hero-sugarcane-box .lid-overlay {
+      position: absolute;
+      inset: 0;
+      background: #E5E4DC;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), visibility 0.4s;
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .hero-sugarcane-box .lid-overlay::before {
+      content: ''; position: absolute; inset: 12px; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.04);
+    }
+    
+    .hero-sugarcane-box:hover .lid-overlay {
+      opacity: 0;
+      transform: scale(1.08) translateY(-15px);
+      visibility: hidden;
+    }
+    
+    .hero-sugarcane-box .lid-pastelito-bag {
+      width: 190px; height: 130px; background: #ffffff; border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+      position: relative; display: flex; justify-content: center; align-items: center;
+      transform: rotate(-6deg); z-index: 11;
+    }
+    .hero-sugarcane-box .pastelito-inside {
+      font-size: 2.8rem; transform: rotate(-25deg);
+    }
+    .hero-sugarcane-box .lid-pastelito-bag::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 35%;
+      border-bottom: 1px dashed rgba(0,0,0,0.08); background: rgba(0,0,0,0.02);
+    }
+    .hero-sugarcane-box .sticker-on-lid {
+      position: absolute; bottom: -58px; left: 50%; transform: translateX(-50%) rotate(2deg) scale(0.62);
+      z-index: 20; transform-origin: top center;
+    }
+    
+    .hero-hover-hint {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--amber-lt);
+      opacity: 0.8;
+      animation: pulse-hint 2s infinite ease-in-out;
+      letter-spacing: 0.5px;
+    }
+    @keyframes pulse-hint {
+      0%, 100% { opacity: 0.5; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(3px); }
+    }
+
     /* Business Card */
     .card-preview-wrap { display: flex; flex-direction: column; gap: 16px; align-items: center; background: rgba(0,0,0,0.3); padding: 32px; border-radius: var(--radius); border: 1px dashed rgba(232,164,74,0.15); }
     .business-card-scene { width: 320px; height: 180px; perspective: 600px; }
@@ -683,7 +777,55 @@
   </div>
   <div class="hero-image-wrap">
     <div class="hero-img-ring">
-      <img src="hero.png" alt="Cajita cubana con ropa vieja, congrí, tostones y ensalada" class="hero-img" />
+      <div class="hero-sugarcane-box-container">
+        <div class="hero-sugarcane-box">
+          <!-- Compartimento grande (Congrí + tostones) -->
+          <div class="comp-large">
+            <div class="food-item">
+              <span class="food-emoji">🍚</span>
+              <span class="food-name">Congrí</span>
+            </div>
+            <div class="food-item">
+              <span class="food-emoji">🍌</span>
+              <span class="food-name">Tostones</span>
+            </div>
+            <span class="comp-label">Congrí & Tostones</span>
+          </div>
+          <!-- Compartimento pequeño 1 (Carne/Proteína) -->
+          <div class="comp-small-1">
+            <div class="food-item">
+              <span class="food-emoji" id="heroBoxProteinEmoji">🥩</span>
+              <span class="food-name" id="heroBoxProteinName">Ropa Vieja</span>
+            </div>
+            <span class="comp-label">Proteína</span>
+          </div>
+          <!-- Compartimento pequeño 2 (Ensalada) -->
+          <div class="comp-small-2">
+            <div class="food-item">
+              <span class="food-emoji">🥗</span>
+              <span class="food-name">Ensalada</span>
+            </div>
+            <span class="comp-label">Frescos</span>
+          </div>
+          
+          <!-- Lid Overlay (Closed State Cover) -->
+          <div class="lid-overlay">
+            <div class="lid-pastelito-bag">
+              <span class="pastelito-inside">🥟</span>
+              <div class="cuba-sticker sticker-on-lid">
+                <div class="cuba-sticker-header">The authentic taste</div>
+                <div class="cuba-sticker-header" style="font-size:0.5rem;margin-top:-6px;">of</div>
+                <div class="cuba-sticker-title">Cuba</div>
+                <div class="cuba-sticker-code">(c9a)</div>
+                <div class="cuba-sticker-mid">with organic ingredients</div>
+                <div class="cuba-sticker-banana" style="font-size:1.8rem;margin:2px 0;">🍌</div>
+                <div class="cuba-sticker-footer">Your break has never tasted so good!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-hover-hint">Pasa el mouse para abrir 🍽️</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1717,6 +1859,13 @@
     if (boxProtEmoji && boxProtName) {
       boxProtEmoji.textContent = conf.menuEmoji;
       boxProtName.textContent = conf.menuTitle;
+    }
+    
+    const heroBoxProtEmoji = document.getElementById('heroBoxProteinEmoji');
+    const heroBoxProtName = document.getElementById('heroBoxProteinName');
+    if (heroBoxProtEmoji && heroBoxProtName) {
+      heroBoxProtEmoji.textContent = conf.menuEmoji;
+      heroBoxProtName.textContent = conf.menuTitle;
     }
     
     updateStickerLabelTranslations(type);
