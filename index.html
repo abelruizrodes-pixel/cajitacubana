@@ -466,16 +466,18 @@
     }
     
     /* Open State */
-    .sugarcane-box.open { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr; gap: 8px; }
+    .sugarcane-box.open { display: grid; grid-template-columns: 1fr 1.2fr; grid-template-rows: 1fr 1fr; gap: 8px; }
     .comp-large {
-      grid-column: 1 / -1; background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
-      padding: 10px; display: flex; justify-content: space-around; align-items: center; position: relative;
+      grid-column: 2; grid-row: 1 / span 2; background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      padding: 10px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; position: relative;
     }
     .comp-small-1 {
+      grid-column: 1; grid-row: 1;
       background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
       padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
     }
     .comp-small-2 {
+      grid-column: 1; grid-row: 2;
       background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
       padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
     }
@@ -539,8 +541,8 @@
       position: relative;
       transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1.2fr 1fr;
+      grid-template-columns: 1fr 1.2fr;
+      grid-template-rows: 1fr 1fr;
       gap: 10px;
       padding: 16px;
       cursor: pointer;
@@ -551,11 +553,16 @@
     }
     
     .hero-sugarcane-box .comp-large {
-      grid-column: 1 / -1; background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
-      padding: 12px; display: flex; justify-content: space-around; align-items: center; position: relative;
+      grid-column: 2; grid-row: 1 / span 2; background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      padding: 12px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; position: relative;
     }
-    .hero-sugarcane-box .comp-small-1,
+    .hero-sugarcane-box .comp-small-1 {
+      grid-column: 1; grid-row: 1;
+      background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
+    }
     .hero-sugarcane-box .comp-small-2 {
+      grid-column: 1; grid-row: 2;
       background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
       padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
     }
