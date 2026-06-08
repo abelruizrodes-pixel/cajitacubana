@@ -560,54 +560,36 @@
     }
     .box-toggle-btn:hover { background: var(--amber); color: var(--dark); border-color: var(--amber); }
 
-    /* HERO SUGARCANE BOX (Hover Interactive) */
+    /* HERO SUGARCANE BOX PHOTO WRAPPER (Hover Interactive) */
     .hero-sugarcane-box-container {
       position: relative;
       z-index: 15;
       perspective: 1000px;
     }
-    .hero-sugarcane-box {
+    .hero-sugarcane-box-photo-wrapper {
       width: 380px;
       height: 380px;
-      background: #FAF9F6;
       border-radius: 12px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.05);
-      border: 1px solid #e5e4dc;
       position: relative;
       transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 10px;
-      padding: 16px;
       cursor: pointer;
       transform-style: preserve-3d;
       transform: rotateX(20deg) rotateY(-8deg) rotateZ(3deg);
     }
-    .hero-sugarcane-box:hover {
+    .hero-sugarcane-box-photo-wrapper:hover {
       transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(-8px) scale(1.03);
       box-shadow: 0 30px 60px rgba(0,0,0,0.6);
     }
     
-    .hero-sugarcane-box .comp-large {
-      grid-column: 2; grid-row: 1 / span 2; background: #eae8df; border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.06); box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
-      padding: 12px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; position: relative;
-    }
-    .hero-sugarcane-box .comp-small-1 {
-      grid-column: 1; grid-row: 1;
-      background: #eae8df; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
-      padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
-    }
-    .hero-sugarcane-box .comp-small-2 {
-      grid-column: 1; grid-row: 2;
-      background: #eae8df; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
-      padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
+    .hero-box-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
     }
     
-    .hero-sugarcane-box .lid-overlay {
+    .hero-sugarcane-box-photo-wrapper .lid-overlay {
       position: absolute;
       inset: 0;
       background: #E5E4DC;
@@ -624,31 +606,31 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.6);
     }
     
-    .hero-sugarcane-box .lid-overlay::before {
+    .hero-sugarcane-box-photo-wrapper .lid-overlay::before {
       content: ''; position: absolute; inset: 12px; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px;
       box-shadow: inset 0 2px 8px rgba(0,0,0,0.04);
     }
     
-    .hero-sugarcane-box:hover .lid-overlay {
+    .hero-sugarcane-box-photo-wrapper:hover .lid-overlay {
       opacity: 0;
       transform: rotateY(-115deg) scale(0.95);
       visibility: hidden;
     }
     
-    .hero-sugarcane-box .lid-pastelito-bag {
+    .hero-sugarcane-box-photo-wrapper .lid-pastelito-bag {
       width: 190px; height: 130px; background: #ffffff; border-radius: 4px;
       border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 6px 15px rgba(0,0,0,0.12);
       position: relative; display: flex; justify-content: center; align-items: center;
       transform: rotate(-6deg); z-index: 11;
     }
-    .hero-sugarcane-box .pastelito-inside {
+    .hero-sugarcane-box-photo-wrapper .pastelito-inside {
       font-size: 2.8rem; transform: rotate(-25deg);
     }
-    .hero-sugarcane-box .lid-pastelito-bag::before {
+    .hero-sugarcane-box-photo-wrapper .lid-pastelito-bag::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 35%;
       border-bottom: 1px dashed rgba(0,0,0,0.08); background: rgba(0,0,0,0.02);
     }
-    .hero-sugarcane-box .sticker-on-lid {
+    .hero-sugarcane-box-photo-wrapper .sticker-on-lid {
       position: absolute; bottom: -58px; left: 50%; transform: translateX(-50%) rotate(2deg) scale(0.62);
       z-index: 20; transform-origin: top center;
     }
@@ -828,22 +810,9 @@
   <div class="hero-image-wrap">
     <div class="hero-img-ring">
       <div class="hero-sugarcane-box-container">
-        <div class="hero-sugarcane-box">
-          <!-- Compartimento grande (Congrí + tostones) -->
-          <div class="comp-large">
-            <div class="real-food-bg" style="background-image: url('food_congri_tostones.jpg');"></div>
-            <span class="comp-label-overlay">Congrí & Tostones</span>
-          </div>
-          <!-- Compartimento pequeño 1 (Carne/Proteína) -->
-          <div class="comp-small-1">
-            <div class="real-food-bg" id="heroBoxProteinImg" style="background-image: url('food_ropavieja.jpg');"></div>
-            <span class="comp-label-overlay" id="heroBoxProteinLabel">Ropa Vieja</span>
-          </div>
-          <!-- Compartimento pequeño 2 (Ensalada) -->
-          <div class="comp-small-2">
-            <div class="real-food-bg" style="background-image: url('food_ensalada.jpg');"></div>
-            <span class="comp-label-overlay">Frescos</span>
-          </div>
+        <div class="hero-sugarcane-box-photo-wrapper">
+          <!-- The real photo of the open sugarcane box -->
+          <img src="media__1780903653562.jpg" alt="Cajita Cubana de Caña de Azúcar Abierta" class="hero-box-photo" />
           
           <!-- Lid Overlay (Closed State Cover) -->
           <div class="lid-overlay">
