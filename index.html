@@ -492,6 +492,37 @@
     .food-emoji { font-size: 1.6rem; display: block; margin-bottom: 2px; }
     .food-name { font-size: 0.65rem; font-weight: 600; color: #333; }
     
+    /* Real food images inside compartments */
+    .real-food-bg {
+      position: absolute;
+      inset: 6px;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+      z-index: 1;
+    }
+    .comp-label-overlay {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(18, 13, 8, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      color: var(--cream);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 2;
+      border: 0.5px solid rgba(232,164,74,0.25);
+      white-space: nowrap;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
     /* Closed State */
     .sugarcane-box.closed {
       display: flex; justify-content: center; align-items: center; background: #E5E4DC;
@@ -800,31 +831,18 @@
         <div class="hero-sugarcane-box">
           <!-- Compartimento grande (Congrí + tostones) -->
           <div class="comp-large">
-            <div class="food-item">
-              <span class="food-emoji">🍚</span>
-              <span class="food-name">Congrí</span>
-            </div>
-            <div class="food-item">
-              <span class="food-emoji">🍌</span>
-              <span class="food-name">Tostones</span>
-            </div>
-            <span class="comp-label">Congrí & Tostones</span>
+            <div class="real-food-bg" style="background-image: url('food_congri_tostones.jpg');"></div>
+            <span class="comp-label-overlay">Congrí & Tostones</span>
           </div>
           <!-- Compartimento pequeño 1 (Carne/Proteína) -->
           <div class="comp-small-1">
-            <div class="food-item">
-              <span class="food-emoji" id="heroBoxProteinEmoji">🥩</span>
-              <span class="food-name" id="heroBoxProteinName">Ropa Vieja</span>
-            </div>
-            <span class="comp-label">Proteína</span>
+            <div class="real-food-bg" id="heroBoxProteinImg" style="background-image: url('food_ropavieja.jpg');"></div>
+            <span class="comp-label-overlay" id="heroBoxProteinLabel">Ropa Vieja</span>
           </div>
           <!-- Compartimento pequeño 2 (Ensalada) -->
           <div class="comp-small-2">
-            <div class="food-item">
-              <span class="food-emoji">🥗</span>
-              <span class="food-name">Ensalada</span>
-            </div>
-            <span class="comp-label">Frescos</span>
+            <div class="real-food-bg" style="background-image: url('food_ensalada.jpg');"></div>
+            <span class="comp-label-overlay">Frescos</span>
           </div>
           
           <!-- Lid Overlay (Closed State Cover) -->
@@ -1553,31 +1571,18 @@
         <div class="sugarcane-box open" id="sugarcaneBox">
           <!-- Compartimento grande (Congrí + tostones) -->
           <div class="comp-large" id="compLarge">
-            <div class="food-item">
-              <span class="food-emoji">🍚</span>
-              <span class="food-name" id="boxCongriName">Congrí</span>
-            </div>
-            <div class="food-item">
-              <span class="food-emoji">🍌</span>
-              <span class="food-name">Tostones</span>
-            </div>
-            <span class="comp-label">Congrí & Tostones</span>
+            <div class="real-food-bg" style="background-image: url('food_congri_tostones.jpg');"></div>
+            <span class="comp-label-overlay">Congrí & Tostones</span>
           </div>
           <!-- Compartimento pequeño 1 (Carne) -->
           <div class="comp-small-1" id="compSmall1">
-            <div class="food-item">
-              <span class="food-emoji" id="boxProteinEmoji">🥩</span>
-              <span class="food-name" id="boxProteinName">Ropa Vieja</span>
-            </div>
-            <span class="comp-label">Proteína</span>
+            <div class="real-food-bg" id="boxProteinImg" style="background-image: url('food_ropavieja.jpg');"></div>
+            <span class="comp-label-overlay" id="boxProteinLabel">Ropa Vieja</span>
           </div>
           <!-- Compartimento pequeño 2 (Ensalada) -->
           <div class="comp-small-2" id="compSmall2">
-            <div class="food-item">
-              <span class="food-emoji">🥗</span>
-              <span class="food-name">Ensalada</span>
-            </div>
-            <span class="comp-label">Frescos</span>
+            <div class="real-food-bg" style="background-image: url('food_ensalada.jpg');"></div>
+            <span class="comp-label-overlay">Frescos</span>
           </div>
           
           <!-- Closed state overlay elements -->
@@ -1873,18 +1878,18 @@
     const log4Rep = Math.round((conf.profitLote - woltComm - conf.totalCost) * 9.16);
     document.getElementById('logCardRepartible4').textContent = conf.logistics.l4.toLocaleString('es') + '€';
     
-    const boxProtEmoji = document.getElementById('boxProteinEmoji');
-    const boxProtName = document.getElementById('boxProteinName');
-    if (boxProtEmoji && boxProtName) {
-      boxProtEmoji.textContent = conf.menuEmoji;
-      boxProtName.textContent = conf.menuTitle;
+    const boxProtImg = document.getElementById('boxProteinImg');
+    const boxProtLabel = document.getElementById('boxProteinLabel');
+    if (boxProtImg && boxProtLabel) {
+      boxProtImg.style.backgroundImage = type === 'beef' ? "url('food_ropavieja.jpg')" : "url('food_pork.jpg')";
+      boxProtLabel.textContent = type === 'beef' ? "Ropa Vieja" : "Cerdo Asado";
     }
     
-    const heroBoxProtEmoji = document.getElementById('heroBoxProteinEmoji');
-    const heroBoxProtName = document.getElementById('heroBoxProteinName');
-    if (heroBoxProtEmoji && heroBoxProtName) {
-      heroBoxProtEmoji.textContent = conf.menuEmoji;
-      heroBoxProtName.textContent = conf.menuTitle;
+    const heroBoxProtImg = document.getElementById('heroBoxProteinImg');
+    const heroBoxProtLabel = document.getElementById('heroBoxProteinLabel');
+    if (heroBoxProtImg && heroBoxProtLabel) {
+      heroBoxProtImg.style.backgroundImage = type === 'beef' ? "url('food_ropavieja.jpg')" : "url('food_pork.jpg')";
+      heroBoxProtLabel.textContent = type === 'beef' ? "Ropa Vieja" : "Cerdo Asado";
     }
     
     updateStickerLabelTranslations(type);
