@@ -468,17 +468,20 @@
     /* Open State */
     .sugarcane-box.open { display: grid; grid-template-columns: 1fr 1.2fr; grid-template-rows: 1fr 1fr; gap: 8px; }
     .comp-large {
-      grid-column: 2; grid-row: 1 / span 2; background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      grid-column: 2; grid-row: 1 / span 2; background: #eae8df; border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.06); box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
       padding: 10px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; position: relative;
     }
     .comp-small-1 {
       grid-column: 1; grid-row: 1;
-      background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      background: #eae8df; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
       padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
     }
     .comp-small-2 {
       grid-column: 1; grid-row: 2;
-      background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      background: #eae8df; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
       padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
     }
     .comp-label {
@@ -530,6 +533,7 @@
     .hero-sugarcane-box-container {
       position: relative;
       z-index: 15;
+      perspective: 1000px;
     }
     .hero-sugarcane-box {
       width: 380px;
@@ -539,31 +543,36 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.05);
       border: 1px solid #e5e4dc;
       position: relative;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
       display: grid;
       grid-template-columns: 1fr 1.2fr;
       grid-template-rows: 1fr 1fr;
       gap: 10px;
       padding: 16px;
       cursor: pointer;
+      transform-style: preserve-3d;
+      transform: rotateX(20deg) rotateY(-8deg) rotateZ(3deg);
     }
     .hero-sugarcane-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+      transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(-8px) scale(1.03);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
     }
     
     .hero-sugarcane-box .comp-large {
-      grid-column: 2; grid-row: 1 / span 2; background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      grid-column: 2; grid-row: 1 / span 2; background: #eae8df; border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.06); box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
       padding: 12px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; position: relative;
     }
     .hero-sugarcane-box .comp-small-1 {
       grid-column: 1; grid-row: 1;
-      background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      background: #eae8df; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
       padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
     }
     .hero-sugarcane-box .comp-small-2 {
       grid-column: 1; grid-row: 2;
-      background: #f2f1e9; border-radius: 8px; border: 1px dashed #d5d4c8;
+      background: #eae8df; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.6);
       padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;
     }
     
@@ -576,9 +585,12 @@
       justify-content: center;
       align-items: center;
       z-index: 10;
-      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), visibility 0.4s;
+      transform-origin: left center;
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), visibility 0.6s;
       opacity: 1;
       visibility: visible;
+      backface-visibility: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.6);
     }
     
     .hero-sugarcane-box .lid-overlay::before {
@@ -588,7 +600,7 @@
     
     .hero-sugarcane-box:hover .lid-overlay {
       opacity: 0;
-      transform: scale(1.08) translateY(-15px);
+      transform: rotateY(-115deg) scale(0.95);
       visibility: hidden;
     }
     
