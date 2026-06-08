@@ -581,12 +581,25 @@
       box-shadow: 0 40px 90px rgba(0,0,0,0.8), 0 0 0 1px var(--amber);
     }
     .hero-img-card {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s;
+      transition: opacity 0.5s ease-in-out, transform 0.5s;
     }
-    .hero-img-card-wrap:hover .hero-img-card {
+    .open-img {
+      opacity: 0;
+    }
+    .closed-img {
+      opacity: 1;
+    }
+    .hero-img-card-wrap:hover .open-img {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+    .hero-img-card-wrap:hover .closed-img {
+      opacity: 0;
       transform: scale(1.04);
     }
 
@@ -749,7 +762,10 @@
   </div>
   <div class="hero-image-wrap">
     <div class="hero-img-card-wrap">
-      <img src="hero_sugarcane.jpg" alt="Cajita Cubana Premium de Caña de Azúcar" class="hero-img-card" />
+      <!-- Closed Box Image (Shows by default) -->
+      <img src="hero_sugarcane_closed.jpg" alt="Cajita Cubana Cerrada" class="hero-img-card closed-img" />
+      <!-- Open Box Image (Shows on hover) -->
+      <img src="hero_sugarcane.jpg" alt="Cajita Cubana Abierta" class="hero-img-card open-img" />
     </div>
   </div>
 </section>
